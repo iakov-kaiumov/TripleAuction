@@ -1,0 +1,87 @@
+{{ extends 'global/Page.html' }}
+{{ block title }}Результаты{{ endblock }}
+
+{{ block content }}
+
+Игроки сделали следующие ставки:
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{border-color:black;border-style:solid;border-width:1px; overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{border-color:black;border-style:solid;border-width:1px;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+</style>
+<table class="tg">
+    <thead>
+      <tr>
+        <th class="tg-0pky">Ставка</th>
+        {{ for header in table_headers }}
+            <th class="tg-0pky">{{ header }}</th>
+        {{ endfor }}
+      </tr>
+    </thead>
+    
+    <tbody>
+        <tr>
+            <td class="tg-0pky">Товар А</td>
+            {{ for player in group.get_players }}
+                <td class="tg-0pky">{{ player.bid_a }}</td>
+            {{ endfor }}
+        </tr>
+        
+        <tr>
+            <td class="tg-0pky">Товар B</td>
+            {{ for player in group.get_players }}
+                <td class="tg-0pky">{{ player.bid_b }}</td>
+            {{ endfor }}
+        </tr>
+        
+        <tr>
+            <td class="tg-0pky">Товар C</td>
+            {{ for player in group.get_players }}
+                <td class="tg-0pky">{{ player.bid_c }}</td>
+            {{ endfor }}
+        </tr>
+    </tbody>
+</table>
+
+<p>
+    
+</p>
+ 
+<p>
+    У вас осталось <b>{{ player.money_left }}</b>
+</p>
+
+<p>
+{{ if player.did_win_a }}
+  Вы купили товар А за <b>{{ player.bid_a }}</b>.
+{{ endif }}
+</p>
+
+<p>
+{{ if player.did_win_b }}
+  Вы купили товар B за <b>{{ player.bid_b }}</b>.
+{{ endif }}
+</p>
+<p>
+{{ if player.did_win_c }}
+  Вы купили товар C за <b>{{ player.bid_c }}</b>.
+{{ endif }}
+</p>
+<p>
+{{ if player.did_win_a or player.did_win_b or player.did_win_c }}
+
+{{ else }}
+    Вы не купили ни одного товара!
+{{ endif }}
+</p>
+
+<p>
+Ваш выигрыш: <b>{{ player.payoff }}</b>.
+</p>
+
+{{ formfields }}
+
+{{ next_button }}
+
+{{ endblock }}

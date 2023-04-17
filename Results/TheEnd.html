@@ -1,0 +1,33 @@
+{{ extends 'global/Page.html' }}
+{{ block title }}{{ endblock }}
+
+{{ block content }}
+
+<head>
+  <title>Centered Emoji</title>
+  <style>
+    /* Center the emoji */
+    #emoji {
+      position: absolute;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    /* Make the emoji big */
+    #emoji {
+      font-size: 10rem;
+    }
+  </style>
+</head>
+
+<h1>Спасибо за участие! </h1>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<div id="emoji">😎</div>
+
+{{ endblock }}

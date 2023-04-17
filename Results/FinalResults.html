@@ -1,0 +1,43 @@
+{{ extends 'global/Page.html' }}
+{{ block title }}Финальные результаты{{ endblock }}
+
+{{ block content }}
+
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{border-color:black;border-style:solid;border-width:1px; overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{border-color:black;border-style:solid;border-width:1px;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-0pky{border-color:inherit;text-align:center;vertical-align:top; width: 400px;}
+.tg .tg-1pky{border-color:inherit;text-align:center;vertical-align:top; width: 200px;}
+</style>
+<table class="tg">
+    <thead>
+      <tr>
+        <th class="tg-0pky">Имя</th>
+        <th class="tg-1pky">Выигрыш</th>
+      </tr>
+    </thead>
+    
+    <tbody>
+        {{ for p in session.get_participants }}
+            <tr>
+                <td class="tg-0pky">{{ p.label }}</td>
+                <td class="tg-1pky">{{ p.payoff }}</td>
+            </tr>
+        {{ endfor }}
+    </tbody>
+</table>
+
+<br>
+<br>
+<br>
+
+{{ if show_others_score }}
+    {{ if show_others_score_as_interval }}
+        {{ formfields }}
+    {{ endif }}
+{{ endif }}
+
+{{ next_button }}
+
+{{ endblock }}

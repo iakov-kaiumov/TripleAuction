@@ -1,0 +1,78 @@
+{{ extends 'global/Page.html' }}
+{{ block title }}Шаг{{ endblock }}
+
+{{ block content }}
+
+<p>
+    Ваши средства: <b>{{ player.available_money }}</b>
+</p>
+
+{{ if show_others_score }}
+
+    {{ if show_others_score_as_interval }}
+        <p>
+            Средства игроков находятся в следующих интервалах:
+        </p>
+        <style type="text/css">
+        .tg  {border-collapse:collapse;border-spacing:0;}
+        .tg td{border-color:black;border-style:solid;border-width:1px; overflow:hidden;padding:10px 5px;word-break:normal;}
+        .tg th{border-color:black;border-style:solid;border-width:1px;overflow:hidden;padding:10px 5px;word-break:normal;}
+        .tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+        </style>
+        <table class="tg">
+            <thead>
+              <tr>
+                {{ for header in table_headers }}
+                    <th class="tg-0pky">{{ header }}</th>
+                {{ endfor }}
+              </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    {{ for interval in money_interval }}
+                        <td class="tg-0pky">{{ interval }}</td>
+                    {{ endfor }}
+                </tr>
+            </tbody>
+        </table>
+    {{ else }}
+        <p>
+            Средства всех игроков:
+        </p>
+        <style type="text/css">
+        .tg  {border-collapse:collapse;border-spacing:0;}
+        .tg td{border-color:black;border-style:solid;border-width:1px; overflow:hidden;padding:10px 5px;word-break:normal;}
+        .tg th{border-color:black;border-style:solid;border-width:1px;overflow:hidden;padding:10px 5px;word-break:normal;}
+        .tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+        </style>
+        <table class="tg">
+            <thead>
+              <tr>
+                {{ for header in table_headers }}
+                    <th class="tg-0pky">{{ header }}</th>
+                {{ endfor }}
+              </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    {{ for player in group.get_players }}
+                        <td class="tg-0pky">{{ player.available_money }}</td>
+                    {{ endfor }}
+                </tr>
+            </tbody>
+        </table>
+    {{ endif }}
+{{ endif }}
+
+
+<p>
+    Сделайте ставку на каждый из трех товаров:
+</p>
+
+{{ formfields }}
+
+{{ next_button }}
+
+{{ endblock }}
