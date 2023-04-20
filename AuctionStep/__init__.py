@@ -8,7 +8,7 @@ doc = ''
 class C(BaseConstants):
     NAME_IN_URL = 'AuctionStep'
     PLAYERS_PER_GROUP = 4
-    NUM_ROUNDS = 2
+    NUM_ROUNDS = 6
     UTILITY_A = cu(100)
     UTILITY_B = cu(200)
     UTILITY_C = cu(400)
