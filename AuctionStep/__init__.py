@@ -1,4 +1,3 @@
-
 from otree.api import *
 c = cu
 
@@ -8,10 +7,12 @@ doc = ''
 class C(BaseConstants):
     NAME_IN_URL = 'AuctionStep'
     PLAYERS_PER_GROUP = 4
-    NUM_ROUNDS = 6
+    NUM_ROUNDS = 10
     UTILITY_A = cu(100)
     UTILITY_B = cu(200)
     UTILITY_C = cu(400)
+
+    MONEY_INTERVALS = ['[0; 25)', '(25; 50]', '(50; 75]', '(75; 99]']
 
 
 class Subsession(BaseSubsession):
@@ -58,9 +59,9 @@ def set_initial_money(group: Group):
 
 class Player(BasePlayer):
     name = models.StringField(label='Имя и фамилия')
-    bid_a = models.CurrencyField(initial=0, label='Ставка на товар А', max=99, min=0)
-    bid_b = models.CurrencyField(initial=0, label='Ставка на товар В', max=99, min=0)
-    bid_c = models.CurrencyField(initial=0, label='Ставка на товар С', max=99, min=0)
+    bid_a = models.CurrencyField(initial=0, label='Ставка на товар А (ценность 100)', max=99, min=0)
+    bid_b = models.CurrencyField(initial=0, label='Ставка на товар В (ценность 200)', max=99, min=0)
+    bid_c = models.CurrencyField(initial=0, label='Ставка на товар С (ценность 400)', max=99, min=0)
     available_money = models.CurrencyField()
     did_win_a = models.BooleanField()
     did_win_b = models.BooleanField()
@@ -70,13 +71,13 @@ class Player(BasePlayer):
 
 def get_money_interval(player: Player):
     if 0 <= player.available_money < 25:
-        return '[0; 25)'
+        return C.MONEY_INTERVALS[0]
     elif 25 <= player.available_money < 50:
-        return '(25; 50]'
+        return C.MONEY_INTERVALS[1]
     elif 50 <= player.available_money < 75:
-        return '(50; 75]'
+        return C.MONEY_INTERVALS[2]
     else:
-        return '(75; 99]'
+        return C.MONEY_INTERVALS[3]
 
 
 class WaitPlayers(WaitPage):
@@ -86,13 +87,12 @@ class WaitPlayers(WaitPage):
 class Bid(Page):
     form_model = 'player'
     form_fields = ['bid_a', 'bid_b', 'bid_c']
-    timeout_seconds = 60
 
     @staticmethod
     def vars_for_template(player: Player):
         session = player.session
         group = player.group
-        table_headers=[f'Игрок {p.id_in_group}' for p in group.get_players()]
+        table_headers = [f'Игрок {p.id_in_group}' for p in group.get_players()]
         table_headers[player.id_in_group - 1] += ' (ВЫ)'
         
         money_interval = [get_money_interval(p) for p in group.get_players()]

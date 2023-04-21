@@ -22,23 +22,35 @@
     
     <tbody>
         <tr>
-            <td class="tg-0pky">Товар А</td>
+            <td class="tg-0pky">Товар А (100)</td>
             {{ for player in group.get_players }}
-                <td class="tg-0pky">{{ player.bid_a }}</td>
+                {{ if player.did_win_a }}
+                    <td class="tg-0pky"><b>{{ player.bid_a }}</b></td>
+                {{ else }}
+                    <td class="tg-0pky">{{ player.bid_a }}</td>
+                {{ endif }}
             {{ endfor }}
         </tr>
         
         <tr>
-            <td class="tg-0pky">Товар B</td>
+            <td class="tg-0pky">Товар B (200)</td>
             {{ for player in group.get_players }}
-                <td class="tg-0pky">{{ player.bid_b }}</td>
+                {{ if player.did_win_b }}
+                    <td class="tg-0pky"><b>{{ player.bid_b }}</b></td>
+                {{ else }}
+                    <td class="tg-0pky">{{ player.bid_b }}</td>
+                {{ endif }}
             {{ endfor }}
         </tr>
         
         <tr>
-            <td class="tg-0pky">Товар C</td>
+            <td class="tg-0pky">Товар C (400)</td>
             {{ for player in group.get_players }}
-                <td class="tg-0pky">{{ player.bid_c }}</td>
+                {{ if player.did_win_c }}
+                    <td class="tg-0pky"><b>{{ player.bid_c }}</b></td>
+                {{ else }}
+                    <td class="tg-0pky">{{ player.bid_c }}</td>
+                {{ endif }}
             {{ endfor }}
         </tr>
     </tbody>

@@ -7,7 +7,7 @@ SESSION_CONFIGS = [
         name='Auction',
         num_demo_participants=4,
         app_sequence=['Introduction', 'AuctionStep', 'Results'],
-        show_others_score=True,
+        show_others_score=False,
         show_others_score_as_interval=False
     )
 ]

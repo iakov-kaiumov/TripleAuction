@@ -9,6 +9,8 @@ class C(BaseConstants):
     PLAYERS_PER_GROUP = None
     NUM_ROUNDS = 1
 
+    MONEY_INTERVALS = ['[0; 25)', '(25; 50]', '(50; 75]', '(75; 99]']
+
 
 class Subsession(BaseSubsession):
     pass
@@ -39,6 +41,10 @@ class Instructions(Page):
     def vars_for_template(player: Player):
         session = player.session
         return dict(
+            interval0=C.MONEY_INTERVALS[0],
+            interval1=C.MONEY_INTERVALS[1],
+            interval2=C.MONEY_INTERVALS[2],
+            interval3=C.MONEY_INTERVALS[3],
             show_others_score=session.config['show_others_score'],
             show_others_score_as_interval=session.config['show_others_score_as_interval']
         )
